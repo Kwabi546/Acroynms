@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Acronym</title>
+</head>
+<body>
+    <h1>Edit Acronym</h1>
+    <form action="/edit/{{ acronym.id }}" method="post">
+        <label for="acronym">Acronym:</label>
+        <input type="text" id="acronym" name="acronym" value="{{ acronym.acronym }}" required>
+        <label for="meaning">Meaning:</label>
+        <input type="text" id="meaning" name="meaning" value="{{ acronym.meaning }}" required>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description">{{ acronym.description }}</textarea>
+        <button type="submit">Update Acronym</button>
+    </form>
+    <a href="/acronyms">Cancel</a>
+</body>
+</html>
