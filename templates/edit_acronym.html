@@ -4,18 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Acronym</title>
+    <!-- Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Your custom CSS from CDN -->
+    <link rel="stylesheet" href="https://cdn.dev.spsc.io/web/framework/styles/sps-styles/SEMVER_RELEASE/index.css">
 </head>
 <body>
-    <h1>Edit Acronym</h1>
-    <form action="/edit/{{ acronym.id }}" method="post">
-        <label for="acronym">Acronym:</label>
-        <input type="text" id="acronym" name="acronym" value="{{ acronym.acronym }}" required>
-        <label for="meaning">Meaning:</label>
-        <input type="text" id="meaning" name="meaning" value="{{ acronym.meaning }}" required>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description">{{ acronym.description }}</textarea>
-        <button type="submit">Update Acronym</button>
-    </form>
-    <a href="/acronyms">Cancel</a>
+    <div class="container mt-5">
+        <h1>Edit Acronym</h1>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }} <!-- CSRF Token is included here -->
+            <div class="form-group">
+                {{ form.acronym.label }}
+                {{ form.acronym(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.meaning.label }}
+                {{ form.meaning(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.description.label }}
+                {{ form.description(class="form-control") }}
+            </div>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+        <a href="{{ url_for('acronyms') }}" class="btn btn-secondary mt-3">Back to Acronyms</a>
+    </div>
+
+    <!-- jQuery and Bootstrap JS from CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

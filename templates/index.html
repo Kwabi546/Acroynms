@@ -4,43 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acronym Dictionary</title>
-    <!-- Include Bootstrap CSS from CDN -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .logo {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 100px; /* Adjust based on the size of your logo */
-        }
-    </style>
+    <!-- Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Your custom CSS from CDN -->
+    <link rel="stylesheet" href="https://cdn.dev.spsc.io/web/framework/styles/sps-styles/SEMVER_RELEASE/index.css">
 </head>
 <body>
-    <img src="/static/sps-commerce.jpg" class="logo" alt="Company Logo">
     <div class="container mt-5">
-        <h1 class="mb-4">Welcome to the Acronym Dictionary</h1>
-        <form action="/add" method="post" class="mb-3">
+        <h1>Welcome to the Acronym Dictionary</h1>
+        <form action="/add" method="post">
+            {{ form.hidden_tag() }} <!-- CSRF Token is included here -->
             <div class="form-group">
-                <label for="acronym">Acronym:</label>
-                <input type="text" id="acronym" name="acronym" class="form-control" required>
+                {{ form.acronym.label }}
+                {{ form.acronym(class="form-control") }}
             </div>
             <div class="form-group">
-                <label for="meaning">Meaning:</label>
-                <input type="text" id="meaning" name="meaning" class="form-control" required>
+                {{ form.meaning.label }}
+                {{ form.meaning(class="form-control") }}
             </div>
             <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" class="form-control"></textarea>
+                {{ form.description.label }}
+                {{ form.description(class="form-control") }}
             </div>
-            <button type="submit" class="btn btn-primary">Add Acronym</button>
-            <a href="/acronyms" class="btn btn-primary">View Acronyms</a>
+            {{ form.submit(class="btn btn-primary") }}
         </form>
+        <a href="/acronyms" class="btn btn-primary mt-3">View Acronyms</a>
     </div>
-    
-    <!-- Optional: Include Bootstrap JS and Popper.js for components that require them -->
+
+    <!-- jQuery and Bootstrap JS from CDN -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
