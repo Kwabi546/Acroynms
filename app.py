@@ -68,7 +68,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        is_admin = form.email.data == "asafo@spscommerce.com"  # Replace with your email
+        is_admin = form.email.data == "youremailaddress@company.com"  # Replace with your email
         user = User(username=form.username.data, email=form.email.data, password=hashed_password, is_admin=is_admin)
         try:
             db.session.add(user)
