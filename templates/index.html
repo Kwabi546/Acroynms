@@ -8,29 +8,111 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Your custom CSS from CDN -->
     <link rel="stylesheet" href="https://cdn.dev.spsc.io/web/framework/styles/sps-styles/SEMVER_RELEASE/index.css">
+    <style>
+        body {
+            background: url('{{ url_for('static', filename='SPS-Zoom-Background-opt02.png') }}') no-repeat center center fixed;
+            background-size: cover;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 1.42857143;
+            text-align: left;
+            white-space: normal;
+        }
+        .acronym-form {
+            background: #fff;
+            margin-top: 10%;
+            margin-bottom: 5%;
+            width: 50%;
+            padding: 5%;
+            border-radius: 1rem;
+            position: relative;
+        }
+        .acronym-form .form-control {
+            border-radius: 1rem;
+        }
+        .acronym-form h3 {
+            margin-bottom: 8%;
+            margin-top: -10%;
+            text-align: center;
+            color: #0062cc;
+        }
+        .acronym-form h1 {
+            margin-bottom: 8%;
+            margin-top: -10%;
+            text-align: center;
+            color: #141516;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 60px;
+        }
+        .btnAddAcronym {
+            width: 40%;
+            border: none;
+            border-radius: 1rem;
+            padding: 1%;
+            background: #4bda2f;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+        }
+        .btnViewAcronyms {
+            width: 40%;
+            border-radius: 1rem;
+            padding: 1%;
+            color: #fff;
+            background-color: #21A6BD;
+            border: none;
+            cursor: pointer;
+        }
+        .logout-btn {
+            padding: 5px 10px;
+            font-size: 12px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Welcome to the Acronym Dictionary</h1>
-        <form action="/add" method="post">
+    <div class="container acronym-form">
+        <a href="/logout" class="btn btn-danger logout-btn">Logout</a>
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <h1 class="text-center">SPS Acronym HUB</h1>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        <form action="/add" method="post" class="mt-4">
             {{ form.hidden_tag() }} <!-- CSRF Token is included here -->
             <div class="form-group">
-                {{ form.acronym.label }}
+                {{ form.acronym.label(class="form-control-label") }}
                 {{ form.acronym(class="form-control") }}
             </div>
             <div class="form-group">
-                {{ form.meaning.label }}
+                {{ form.meaning.label(class="form-control-label") }}
                 {{ form.meaning(class="form-control") }}
             </div>
             <div class="form-group">
-                {{ form.description.label }}
-                {{ form.description(class="form-control") }}
+                {{ form.description.label(class="form-control-label") }}
+                {{ form.description(class="form-control", rows=5, style="width: 100%; height: 100px;") }}
             </div>
-            {{ form.submit(class="btn btn-primary") }}
+            <div class="d-flex justify-content-between">
+                {{ form.submit(class="btn btnAddAcronym") }}
+                <a href="/acronyms" class="btn btnViewAcronyms">View Acronyms</a>
+            </div>
         </form>
-        <a href="/acronyms" class="btn btn-primary mt-3">View Acronyms</a>
     </div>
-
     <!-- jQuery and Bootstrap JS from CDN -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

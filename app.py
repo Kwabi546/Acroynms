@@ -87,16 +87,19 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('home'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('acronyms'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
+
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('login'))
 
 @app.route('/')
 @login_required
@@ -115,8 +118,10 @@ def add_acronym():
         new_acronym = Acronym(acronym=acronym.upper(), meaning=meaning, description=description)
         db.session.add(new_acronym)
         db.session.commit()
-        return redirect(url_for('acronyms'))
-    return render_template('index.html', form=form)
+        flash('Acronym added successfully!', 'success')
+        return redirect(url_for('home'))
+    flash('Error adding acronym. Please check the form and try again.', 'danger')
+    return redirect(url_for('home'))
 
 @app.route('/acronyms')
 @login_required
@@ -136,6 +141,7 @@ def acronyms():
     else:
         acronyms = Acronym.query.order_by(Acronym.acronym).paginate(page=page, per_page=per_page, error_out=False)
     return render_template('acronyms.html', acronyms=acronyms.items, pagination=acronyms, form=form)
+
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required

@@ -8,27 +8,46 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Your custom CSS from CDN -->
     <link rel="stylesheet" href="https://cdn.dev.spsc.io/web/framework/styles/sps-styles/SEMVER_RELEASE/index.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 1.42857143;
+            text-align: left;
+            white-space: normal;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Edit Acronym</h1>
-        <form method="POST" action="">
-            {{ form.hidden_tag() }} <!-- CSRF Token is included here -->
-            <div class="form-group">
-                {{ form.acronym.label }}
-                {{ form.acronym(class="form-control") }}
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <h1 class="text-center mb-4">Edit Acronym</h1>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }} <!-- CSRF Token is included here -->
+                    <div class="form-group">
+                        {{ form.acronym.label(class="form-control-label") }}
+                        {{ form.acronym(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.meaning.label(class="form-control-label") }}
+                        {{ form.meaning(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.description.label(class="form-control-label") }}
+                        {{ form.description(class="form-control") }}
+                    </div>
+                    <div class="text-center">
+                        {{ form.submit(class="btn btn-primary") }}
+                        <a href="{{ url_for('acronyms') }}" class="btn btn-secondary ml-2">Back to Acronyms</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                {{ form.meaning.label }}
-                {{ form.meaning(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.description.label }}
-                {{ form.description(class="form-control") }}
-            </div>
-            {{ form.submit(class="btn btn-primary") }}
-        </form>
-        <a href="{{ url_for('acronyms') }}" class="btn btn-secondary mt-3">Back to Acronyms</a>
+        </div>
     </div>
 
     <!-- jQuery and Bootstrap JS from CDN -->
